@@ -110,7 +110,7 @@ server was provisioned.
 ## Reproducing it
 
 ```bash
-git clone <your-url> && cd fastapi-100k-rps
+git clone https://github.com/IsrarAhmed919/fastapi-100k-rps.git && cd fastapi-100k-rps
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 
 docker compose up -d                                  # Postgres on 5434, Redis on 6380
