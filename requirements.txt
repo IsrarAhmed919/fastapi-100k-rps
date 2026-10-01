@@ -1,0 +1,10 @@
+# Versions are the ones the published numbers were measured with, on Python 3.13.5.
+fastapi==0.142.2
+uvicorn[standard]==0.54.0
+asyncpg==0.31.0
+psycopg2-binary==2.9.13
+redis[hiredis]==8.1.0
+orjson==3.12.0
+
+# chart.py only. Not needed to run or benchmark any stage.
+matplotlib==3.11.0

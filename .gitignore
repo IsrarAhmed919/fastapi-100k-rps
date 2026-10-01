@@ -1,0 +1,24 @@
+# Virtualenv
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Generated dataset. 94 MB, and reproducible from a seeded script:
+#   python3 generate_dataset.py --count 400000 --out data/results.csv
+data/
+*.csv
+
+# Pre-rendered blobs live in /dev/shm, never in the repo
+
+# Benchmark and setup output
+*.log
+mb_*.txt
+*.pid
+
+# Charts are committed deliberately, so results_chart.png is NOT ignored
+
+# Editor and OS
+.idea/
+.vscode/
+.DS_Store

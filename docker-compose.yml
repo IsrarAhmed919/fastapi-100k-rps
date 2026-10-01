@@ -1,0 +1,17 @@
+# Postgres and Redis for the benchmark. Both are pinned to a fixed memory budget so the
+# numbers mean something: an unbounded cache would flatter the results.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_PASSWORD: bench
+      POSTGRES_DB: results
+    command: >
+      postgres -c max_connections=200 -c shared_buffers=512MB
+               -c effective_cache_size=1536MB -c work_mem=16MB
+    ports: ["5434:5432"]
+    tmpfs: ["/var/lib/postgresql/data"]   # disk speed is not what we are measuring
+  cache:
+    image: redis:7-alpine
+    command: redis-server --save "" --appendonly no --maxmemory 2gb --maxmemory-policy allkeys-lru
+    ports: ["6380:6379"]

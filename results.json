@@ -1,0 +1,85 @@
+{
+  "measured": [
+    {
+      "stage": "0. sync def, new DB connection per request",
+      "rps": 682,
+      "p99_ms": 139.5
+    },
+    {
+      "stage": "1. async def + asyncpg pool, 12 workers",
+      "rps": 11485,
+      "p99_ms": 10.5
+    },
+    {
+      "stage": "2. Redis cache + orjson, 12 workers",
+      "rps": 19540,
+      "p99_ms": 8.7
+    },
+    {
+      "stage": "3. nginx serving pre-rendered blobs",
+      "rps": 146047,
+      "p99_ms": 1.0
+    }
+  ],
+  "traffic_model": {
+    "candidates": 767054,
+    "lookups_per_candidate": 3.0,
+    "retry_factor": 1.8,
+    "total_lookups": 4142092,
+    "peak_rps": 12081
+  },
+  "capacity": [
+    {
+      "stage": "0. sync def, new DB connection per request",
+      "rps": 682,
+      "p99_ms": 139.5,
+      "nodes": 18,
+      "cost_low": 810,
+      "cost_high": 3420
+    },
+    {
+      "stage": "1. async def + asyncpg pool, 12 workers",
+      "rps": 11485,
+      "p99_ms": 10.5,
+      "nodes": 2,
+      "cost_low": 90,
+      "cost_high": 380
+    },
+    {
+      "stage": "2. Redis cache + orjson, 12 workers",
+      "rps": 19540,
+      "p99_ms": 8.7,
+      "nodes": 1,
+      "cost_low": 45,
+      "cost_high": 190
+    },
+    {
+      "stage": "3. nginx serving pre-rendered blobs",
+      "rps": 146047,
+      "p99_ms": 1.0,
+      "nodes": 1,
+      "cost_low": 45,
+      "cost_high": 190
+    }
+  ],
+  "burst_scenarios": [
+    {
+      "scenario": "Moderate: burst spread over 15 minutes",
+      "peak_rps": 3222,
+      "nodes_naive": 5,
+      "nodes_final": 1
+    },
+    {
+      "scenario": "Severe: half the burst in the first minute",
+      "peak_rps": 24162,
+      "nodes_naive": 36,
+      "nodes_final": 1
+    },
+    {
+      "scenario": "Thundering herd: a quarter of all lookups in 10 seconds",
+      "peak_rps": 103552,
+      "nodes_naive": 152,
+      "nodes_final": 1
+    }
+  ]
+}
